@@ -25,3 +25,5 @@ jobs:
     with:
       terraform_action: ${{ inputs.terraform_action }}
       root_module_folder_relative_path: '.'
+    env:
+      GITHUB_TOKEN: ${{ secrets.TF_GITHUB_TOKEN }}

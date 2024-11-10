@@ -35,3 +35,5 @@ variable "skip_deploy" {
   default     = false
   description = "Flag to skip deployment. This is used for testing and documentation generation purposes."
 }
+
+variable "github_org" {}

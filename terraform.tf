@@ -13,6 +13,10 @@ terraform {
       source  = "hashicorp/local"
       version = "~> 2.5"
     }
+    github = {
+      source  = "integrations/github"
+      version = "~> 6.3.0"
+    }
   }
   backend "azurerm" {}
 }
@@ -39,4 +43,8 @@ provider "azurerm" {
   alias                      = "connectivity"
   subscription_id            = var.subscription_id_connectivity
   features {}
+}
+
+provider "github" {
+  owner = var.github_org
 }
