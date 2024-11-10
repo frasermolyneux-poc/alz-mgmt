@@ -16,7 +16,7 @@ locals {
       virtual_network_gateway = hub_network_value.virtual_network_gateways.vpn
     } if can(hub_network_value.virtual_network_gateways.vpn)
   }
-  virtual_network_gateways = merge(local.virtual_network_gateways_express_route, local.virtual_network_gateways_vpn)
+  virtual_network_gateways = local.virtual_network_gateways_vpn
 }
 
 locals {
