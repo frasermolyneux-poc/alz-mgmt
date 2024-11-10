@@ -7,6 +7,8 @@ resource "random_id" "kv_id" {
   byte_length = 4
 }
 
+data "azurerm_client_config" "current" {}
+
 resource "azurerm_key_vault" "github_kv" {
   name                = "kv-${random_id.kv_id.hex}-${local.location}"
   location            = azurerm_resource_group.rg_github_kv.location
