@@ -1,10 +1,45 @@
-module "alz_workload_rg" {
-  source  = "Azure/avm-res-resources-resourcegroup/azurerm//examples/default"
+module "resource_group" {
+  source  = "Azure/avm-res-resources-resourcegroup/azurerm"
   version = "0.1.0"
 
   location = local.location
   name     = "rg-alz-workloads-${local.location}"
 }
+
+module "virtual_network" {
+  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
+  version = "0.6.0"
+
+  resource_group_name = module.resource_group.resource.name
+  location            = module.resource_group.resource.location
+
+  address_space = [local.virtual_network_address_space]
+}
+
+
+//data "azurerm_client_config" "this" {}
+
+//module "key_vault" {
+//  source  = "Azure/avm-res-keyvault-vault/azurerm/"
+//  version = "0.9.1"
+//
+//  name                          = module.naming.key_vault.name_unique
+//  enable_telemetry              = false
+//
+//  location                      = module.resource_group.resource.location
+//  resource_group_name           = module.resource_group.resource.name
+//
+//  tenant_id                     = data.azurerm_client_config.this.tenant_id
+//
+//  public_network_access_enabled = false
+//
+//  private_endpoints = {
+//    primary = {
+//      private_dns_zone_resource_ids = [azurerm_private_dns_zone.this.id] //private_dns_zones_resource_group_id
+//      subnet_resource_id            = azurerm_subnet.this.id
+//    }
+//  }
+//}
 
 //resource "random_id" "kv_id" {
 //  byte_length = 4
