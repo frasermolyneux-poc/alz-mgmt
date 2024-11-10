@@ -16,3 +16,5 @@ jobs:
       pull-requests: write
     with:
       root_module_folder_relative_path: '.'
+    secrets:
+      tf_github_token: ${{ secrets.TF_GITHUB_TOKEN }}
