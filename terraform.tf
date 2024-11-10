@@ -46,5 +46,5 @@ provider "azurerm" {
 }
 
 provider "github" {
-  owner = var.github_org
+  owner = var.alz_workload_settings.github_org
 }
