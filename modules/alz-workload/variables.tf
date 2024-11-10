@@ -1,5 +1,3 @@
-variable "github_org" {}
-
 variable "alz_workload_settings" {
   type        = any
   default     = {}
