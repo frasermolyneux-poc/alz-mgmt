@@ -1,61 +1,64 @@
-resource "azurerm_resource_group" "rg_github_kv" {
-  name     = "rg-alz-workloads-${local.location}"
+module "alz_workload_rg" {
+  source  = "Azure/avm-res-resources-resourcegroup/azurerm//examples/default"
+  version = "0.1.0"
+
   location = local.location
+  name     = "rg-alz-workloads-${local.location}"
 }
 
-resource "random_id" "kv_id" {
-  byte_length = 4
-}
-
-data "azurerm_client_config" "current" {}
-
-resource "azurerm_key_vault" "github_kv" {
-  name                = "kv-${random_id.kv_id.hex}-${local.location}"
-  location            = azurerm_resource_group.rg_github_kv.location
-  resource_group_name = azurerm_resource_group.rg_github_kv.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-
-  soft_delete_retention_days = 90
-  purge_protection_enabled   = true
-  enable_rbac_authorization  = true
-
-  sku_name = "standard"
-
-  network_acls {
-    bypass         = "AzureServices"
-    default_action = "Allow"
-  }
-}
-
-resource "azurerm_role_assignment" "deploy_principal_kv_role_assignment" {
-  scope                = azurerm_key_vault.github_kv.id
-  role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azurerm_client_config.current.object_id
-}
-
-resource "azurerm_key_vault_secret" "github_runners_access_token" {
-  name         = "github-runners-access-token"
-  value        = "placeholder"
-  key_vault_id = azurerm_key_vault.github_kv.id
-
-  lifecycle {
-    ignore_changes = [value]
-  }
-}
-
-resource "github_repository" "alz" {
-  name        = "alz-workloads"
-  description = "alz-workloads"
-
-  auto_init = true
-
-  visibility = "public"
-
-  allow_update_branch  = true
-  allow_merge_commit   = false
-  allow_rebase_merge   = false
-  vulnerability_alerts = true
-}
+//resource "random_id" "kv_id" {
+//  byte_length = 4
+//}
+//
+//data "azurerm_client_config" "current" {}
+//
+//resource "azurerm_key_vault" "github_kv" {
+//  name                = "kv-${random_id.kv_id.hex}-${local.location}"
+//  location            = azurerm_resource_group.rg_github_kv.location
+//  resource_group_name = azurerm_resource_group.rg_github_kv.name
+//  tenant_id           = data.azurerm_client_config.current.tenant_id
+//
+//  soft_delete_retention_days = 90
+//  purge_protection_enabled   = true
+//  enable_rbac_authorization  = true
+//
+//  sku_name = "standard"
+//
+//  network_acls {
+//    bypass         = "AzureServices"
+//    default_action = "Allow"
+//  }
+//}
+//
+//resource "azurerm_role_assignment" "deploy_principal_kv_role_assignment" {
+//  scope                = azurerm_key_vault.github_kv.id
+//  role_definition_name = "Key Vault Secrets Officer"
+//  principal_id         = data.azurerm_client_config.current.object_id
+//}
+//
+//resource "azurerm_key_vault_secret" "github_runners_access_token" {
+//  name         = "github-runners-access-token"
+//  value        = "placeholder"
+//  key_vault_id = azurerm_key_vault.github_kv.id
+//
+//  lifecycle {
+//    ignore_changes = [value]
+//  }
+//}
+//
+//resource "github_repository" "alz" {
+//  name        = "alz-workloads"
+//  description = "alz-workloads"
+//
+//  auto_init = true
+//
+//  visibility = "public"
+//
+//  allow_update_branch  = true
+//  allow_merge_commit   = false
+//  allow_rebase_merge   = false
+//  vulnerability_alerts = true
+//}
 
 //module "avm-ptn-cicd-agents-and-runners_example_github_container_instance" {
 //  source  = "Azure/avm-ptn-cicd-agents-and-runners/azurerm//examples/github_container_instance"
