@@ -6,6 +6,6 @@ The shared settings for the alz workloads. This is where global resources are de
 DESCRIPTION
 }
 
-variable "private_dns_zones_resource_group_id" {
+variable "private_dns_zones_resource_group_name" {
   type = string
 }
