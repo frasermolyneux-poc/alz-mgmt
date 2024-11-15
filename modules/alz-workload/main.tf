@@ -1,10 +1,10 @@
-module "resource_group" {
-  source  = "Azure/avm-res-resources-resourcegroup/azurerm"
-  version = "0.1.0"
-
-  location = local.location
-  name     = "rg-alz-workloads-${local.location}"
-}
+//module "resource_group" {
+//  source  = "Azure/avm-res-resources-resourcegroup/azurerm"
+//  version = "0.1.0"
+//
+//  location = local.location
+//  name     = "rg-alz-workloads-${local.location}"
+//}
 
 //module "virtual_network" {
 //  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
