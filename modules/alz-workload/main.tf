@@ -6,15 +6,15 @@ module "resource_group" {
   name     = "rg-alz-workloads-${local.location}"
 }
 
-module "virtual_network" {
-  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.6.0"
-
-  resource_group_name = module.resource_group.resource.name
-  location            = module.resource_group.resource.location
-
-  address_space = [local.virtual_network_address_space]
-}
+//module "virtual_network" {
+//  source  = "Azure/avm-res-network-virtualnetwork/azurerm"
+//  version = "0.6.0"
+//
+//  resource_group_name = module.resource_group.resource.name
+//  location            = module.resource_group.resource.location
+//
+//  address_space = [local.virtual_network_address_space]
+//}
 
 
 //data "azurerm_client_config" "this" {}
@@ -80,20 +80,20 @@ module "virtual_network" {
 //    ignore_changes = [value]
 //  }
 //}
-//
-//resource "github_repository" "alz" {
-//  name        = "alz-workloads"
-//  description = "alz-workloads"
-//
-//  auto_init = true
-//
-//  visibility = "public"
-//
-//  allow_update_branch  = true
-//  allow_merge_commit   = false
-//  allow_rebase_merge   = false
-//  vulnerability_alerts = true
-//}
+
+resource "github_repository" "alz" {
+  name        = "alz-workloads"
+  description = "alz-workloads"
+
+  auto_init = true
+
+  visibility = "public"
+
+  allow_update_branch  = true
+  allow_merge_commit   = false
+  allow_rebase_merge   = false
+  vulnerability_alerts = true
+}
 
 //module "avm-ptn-cicd-agents-and-runners_example_github_container_instance" {
 //  source  = "Azure/avm-ptn-cicd-agents-and-runners/azurerm//examples/github_container_instance"
