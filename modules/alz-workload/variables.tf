@@ -4,7 +4,7 @@ variable "alz_workload_settings" {
     github_org = optional(string)
     virtual_network_settings = optional(object({
       virtual_network_address_space = optional(string)
-      subnets                       = optional(any)
+      virtual_network_subnets       = optional(any)
     }))
   })
   default     = {}
