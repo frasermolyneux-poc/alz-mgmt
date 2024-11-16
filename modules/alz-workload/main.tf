@@ -29,9 +29,9 @@ data "azurerm_virtual_network" "peers" {
 
 locals {
   virtual_network_peerings_linked_to_data_resource = {
-    for virtual_network_peering in local.virtual_network_peerings : virtual_network_peering.name => {
+    for virtual_network_peering_key, virtual_network_peering in local.virtual_network_peerings : virtual_network_peering_key => {
       name                               = virtual_network_peering.name
-      remote_virtual_network_resource_id = data.azurerm_virtual_network.peers[virtual_network_peering.name].id
+      remote_virtual_network_resource_id = data.azurerm_virtual_network.peers[virtual_network_peering_key].id
     }
   }
 
