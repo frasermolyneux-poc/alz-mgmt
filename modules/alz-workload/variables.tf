@@ -7,6 +7,7 @@ variable "alz_workload_settings" {
       virtual_network_name          = optional(string)
       virtual_network_address_space = optional(string)
       virtual_network_subnets       = optional(any)
+      virtual_network_peerings      = optional(any)
     }))
   })
   default     = {}

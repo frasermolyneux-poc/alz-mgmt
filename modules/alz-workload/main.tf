@@ -20,6 +20,13 @@ module "resource_group" {
   name     = local.resource_group_name
 }
 
+data "azurerm_virtual_network" "peers" {
+  for_each = local.virtual_network_peerings
+
+  name                = each.value.name
+  resource_group_name = each.value.resource_group_name
+}
+
 module "virtual_network" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "0.6.0"

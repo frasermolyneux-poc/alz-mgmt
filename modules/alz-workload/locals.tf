@@ -4,4 +4,5 @@ locals {
   virtual_network_name          = var.alz_workload_settings.virtual_network_settings.virtual_network_name
   virtual_network_address_space = var.alz_workload_settings.virtual_network_settings.virtual_network_address_space
   virtual_network_subnets       = var.alz_workload_settings.virtual_network_settings.virtual_network_subnets
+  virtual_network_peerings      = var.alz_workload_settings.virtual_network_settings.virtual_network_peerings
 }
