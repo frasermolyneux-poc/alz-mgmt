@@ -17,14 +17,14 @@ module "resource_group" {
   version = "0.1.0"
 
   location = local.location
-  name     = "rg-alz-workloads-${local.location}"
+  name     = local.resource_group_name
 }
 
 module "virtual_network" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "0.6.0"
 
-  name = "vnet-workloads-${local.location}"
+  name = local.virtual_network_name
 
   resource_group_name = module.resource_group.resource.name
   location            = module.resource_group.resource.location
