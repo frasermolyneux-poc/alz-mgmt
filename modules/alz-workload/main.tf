@@ -18,6 +18,9 @@ module "resource_group" {
 
   location = local.location
   name     = local.resource_group_name
+
+  enable_telemetry = var.enable_telemetry
+  tags             = var.tags
 }
 
 data "azurerm_virtual_network" "peers" {
@@ -51,6 +54,9 @@ module "virtual_network" {
   subnets = local.virtual_network_subnets
 
   peerings = local.virtual_network_peerings_linked_to_data_resource
+
+  enable_telemetry = var.enable_telemetry
+  tags             = var.tags
 }
 
 //data "azurerm_client_config" "this" {}
