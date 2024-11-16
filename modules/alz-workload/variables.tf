@@ -1,12 +1,12 @@
 variable "alz_workload_settings" {
-  type = optional(object({
-    location   = string
-    github_org = string
-    virtual_network_settings = object({
-      virtual_network_address_space = string
-      subnets                       = any
-    })
-  }))
+  type = object({
+    location   = optional(string)
+    github_org = optional(string)
+    virtual_network_settings = optional(object({
+      virtual_network_address_space = optional(string)
+      subnets                       = optional(any)
+    }))
+  })
   default     = {}
   description = <<DESCRIPTION
 The shared settings for the alz workloads. This is where global resources are defined.
