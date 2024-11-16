@@ -27,6 +27,16 @@ data "azurerm_virtual_network" "peers" {
   resource_group_name = each.value.resource_group_name
 }
 
+locals {
+  virtual_network_peerings_linked_to_data_resource = {
+    for virtual_network_peering in local.virtual_network_peerings : virtual_network_peering.name => {
+      name                               = virtual_network_peering.name
+      remote_virtual_network_resource_id = data.azurerm_virtual_network.peers[virtual_network_peering.name].id
+    }
+  }
+
+}
+
 module "virtual_network" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "0.6.0"
@@ -39,6 +49,8 @@ module "virtual_network" {
   address_space = [local.virtual_network_address_space]
 
   subnets = local.virtual_network_subnets
+
+  peerings = local.virtual_network_peerings_linked_to_data_resource
 }
 
 //data "azurerm_client_config" "this" {}
