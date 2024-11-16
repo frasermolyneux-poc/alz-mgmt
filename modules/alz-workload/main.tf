@@ -30,6 +30,8 @@ module "virtual_network" {
   location            = module.resource_group.resource.location
 
   address_space = [local.virtual_network_address_space]
+
+  subnets = local.virtual_network_subnets
 }
 
 //data "azurerm_client_config" "this" {}
