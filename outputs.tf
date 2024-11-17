@@ -9,3 +9,7 @@ output "hub_and_spoke_output" {
 output "private_dns_zone_ids" {
   value = module.hub_and_spoke_vnet[0].private_dns_zone_ids
 }
+
+output "private_dns_zones_local" {
+  value = module.workloads.private_dns_zones_local
+}

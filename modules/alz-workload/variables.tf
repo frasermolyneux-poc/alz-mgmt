@@ -38,3 +38,29 @@ variable "tags" {
   default     = null
   description = "(Optional) Tags of the resource."
 }
+
+// Pulled from hub and spoke module
+variable "hub_virtual_networks" {
+  type = map(object({
+    hub_virtual_network = any
+    virtual_network_gateways = optional(object({
+      express_route = optional(any)
+      vpn           = optional(any)
+    }))
+    private_dns_zones = optional(object({
+      resource_group_name = string
+      is_primary          = optional(bool, false)
+    }))
+  }))
+  default     = {}
+  description = <<DESCRIPTION
+A map of hub networks to create. 
+
+The following attributes are supported:
+
+  - hub_virtual_network: The hub virtual network settings. Detailed information about the hub virtual network can be found in the module's README: https://registry.terraform.io/modules/Azure/avm-ptn-hubnetworking
+  - virtual_network_gateways: (Optional) The virtual network gateway settings. Detailed information about the virtual network gateway can be found in the module's README: https://registry.terraform.io/modules/Azure/avm-ptn-vnetgateway
+  - private_dns_zones: (Optional) The private DNS zone settings. Detailed information about the private DNS zone can be found in the module's README: https://registry.terraform.io/modules/Azure/avm-ptn-network-private-link-private-dns-zones
+
+DESCRIPTION
+}
