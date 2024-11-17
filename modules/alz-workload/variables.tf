@@ -16,6 +16,12 @@ The shared settings for the alz workloads. This is where global resources are de
 DESCRIPTION
 }
 
+variable "private_dns_zone_ids" {
+  type        = map(string)
+  default     = {}
+  description = "The private DNS zone IDs."
+}
+
 variable "enable_telemetry" {
   type        = bool
   default     = true
@@ -25,6 +31,12 @@ For more information see <https://aka.ms/avm/telemetryinfo>.
 If it is set to false, then no telemetry will be collected.
 DESCRIPTION
   nullable    = false
+}
+
+variable "tags" {
+  type        = map(string)
+  default     = null
+  description = "(Optional) Tags of the resource."
 }
 
 variable "tags" {
