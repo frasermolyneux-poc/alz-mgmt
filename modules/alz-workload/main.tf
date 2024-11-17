@@ -102,7 +102,7 @@ module "key_vault" {
 resource "azurerm_role_assignment" "deploy_principal_kv_role_assignment" {
   scope                = module.key_vault.resource.id
   role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = data.azurerm_client_config.current.object_id
+  principal_id         = data.azurerm_client_config.this.object_id
 }
 
 resource "azurerm_key_vault_secret" "github_runners_access_token" {
