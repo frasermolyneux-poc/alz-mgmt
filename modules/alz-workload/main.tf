@@ -78,7 +78,7 @@ resource "random_id" "kv_id" {
 }
 
 module "key_vault" {
-  source  = "Azure/avm-res-keyvault-vault/azurerm/"
+  source  = "Azure/avm-res-keyvault-vault/azurerm"
   version = "0.9.1"
 
   name             = "kv-${random_id.kv_id.hex}-${var.location}"
