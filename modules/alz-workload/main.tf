@@ -71,33 +71,33 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
   tags = var.tags
 }
 
-//data "azurerm_client_config" "this" {}
-//
-//resource "random_id" "kv_id" {
-//  byte_length = 4
-//}
-//
-//module "key_vault" {
-//  source  = "Azure/avm-res-keyvault-vault/azurerm/"
-//  version = "0.9.1"
-//
-//  name                          = "kv-${random_id.kv_id.hex}-${var.location}"
-//  enable_telemetry              = var.enable_telemetry
-//
-//  location                      = module.resource_group.resource.location
-//  resource_group_name           = module.resource_group.resource.name
-//
-//  tenant_id                     = data.azurerm_client_config.this.tenant_id
-//
-//  public_network_access_enabled = false
-//
-//  private_endpoints = {
-//    primary = {
-//      private_dns_zone_resource_ids = [azurerm_private_dns_zone.this.id] //private_dns_zones_resource_group_id
-//      subnet_resource_id            = module.virtual_network.resource.subnets.agents.id
-//    }
-//  }
-//}
+data "azurerm_client_config" "this" {}
+
+resource "random_id" "kv_id" {
+  byte_length = 4
+}
+
+module "key_vault" {
+  source  = "Azure/avm-res-keyvault-vault/azurerm/"
+  version = "0.9.1"
+
+  name             = "kv-${random_id.kv_id.hex}-${var.location}"
+  enable_telemetry = var.enable_telemetry
+
+  location            = module.resource_group.resource.location
+  resource_group_name = module.resource_group.resource.name
+
+  tenant_id = data.azurerm_client_config.this.tenant_id
+
+  public_network_access_enabled = false
+
+  private_endpoints = {
+    primary = {
+      private_dns_zone_resource_ids = [var.private_dns_zone_ids.azure_key_vault]
+      subnet_resource_id            = module.virtual_network.subnets.endpoints.resource.id
+    }
+  }
+}
 
 //resource "random_id" "kv_id" {
 //  byte_length = 4
