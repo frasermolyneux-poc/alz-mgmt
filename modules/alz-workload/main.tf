@@ -59,17 +59,17 @@ module "virtual_network" {
   tags             = var.tags
 }
 
-//resource "azurerm_private_dns_zone_virtual_network_link" "this" {
-//  for_each = local.private_dns_zones
-//
-//  name                  = 
-//  private_dns_zone_name = azurerm_private_dns_zone.this.name
-//  resource_group_name   = each.value.resource_group_name
-//  virtual_network_id    = module.virtual_network.resource.id
-//  registration_enabled  = false
-//
-//  tags = var.tags
-//}
+resource "azurerm_private_dns_zone_virtual_network_link" "this" {
+  for_each = var.combined_private_link_private_dns_zones_replaced_with_vnets_to_link_to
+
+  name                  = "vnet_link-${each.value.zone_key}-${local.virtual_network_name}"
+  private_dns_zone_name = each.value.zone_value.zone_name
+  resource_group_name   = local.private_dns_zones.primary.resource_group_name
+  virtual_network_id    = module.virtual_network.resource.id
+  registration_enabled  = false
+
+  tags = var.tags
+}
 
 //data "azurerm_client_config" "this" {}
 

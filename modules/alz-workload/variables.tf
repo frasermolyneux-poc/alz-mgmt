@@ -64,3 +64,9 @@ The following attributes are supported:
 
 DESCRIPTION
 }
+
+variable "combined_private_link_private_dns_zones_replaced_with_vnets_to_link_to" {
+  type        = any
+  default     = {}
+  description = "The combined private link private DNS zones replaced with the virtual networks to link to."
+}
