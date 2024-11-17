@@ -13,3 +13,7 @@ output "private_dns_zone_ids" {
 output "private_dns_zones_local" {
   value = module.workloads.private_dns_zones_local
 }
+
+output "vnet_outputs" {
+  value = module.workloads.vnet_outputs
+}

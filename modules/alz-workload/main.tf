@@ -72,13 +72,17 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
 }
 
 //data "azurerm_client_config" "this" {}
-
+//
+//resource "random_id" "kv_id" {
+//  byte_length = 4
+//}
+//
 //module "key_vault" {
 //  source  = "Azure/avm-res-keyvault-vault/azurerm/"
 //  version = "0.9.1"
 //
-//  name                          = module.naming.key_vault.name_unique
-//  enable_telemetry              = false
+//  name                          = "kv-${random_id.kv_id.hex}-${var.location}"
+//  enable_telemetry              = var.enable_telemetry
 //
 //  location                      = module.resource_group.resource.location
 //  resource_group_name           = module.resource_group.resource.name
@@ -90,7 +94,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "this" {
 //  private_endpoints = {
 //    primary = {
 //      private_dns_zone_resource_ids = [azurerm_private_dns_zone.this.id] //private_dns_zones_resource_group_id
-//      subnet_resource_id            = azurerm_subnet.this.id
+//      subnet_resource_id            = module.virtual_network.resource.subnets.agents.id
 //    }
 //  }
 //}
