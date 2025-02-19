@@ -45,3 +45,6 @@ provider "azurerm" {
   features {}
 }
 
+provider "github" {
+  owner = "frasermolyneux-poc"
+}
